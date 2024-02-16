@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="calc-container">
+      <div id="display"></div>
+      <div id="middle-part">
+        <div id="num-container">
+          <div style="display: flex; flex: 1">
+            <button class="numbers calc-btn">0</button>
+            <button class="numbers calc-btn">.</button>
+            <button id="equal-btn" class="other" style="background-color: darkgray;" onclick="equal()">=</button>
+          </div>
+          <div style="display: flex; flex: 1">
+            <button class="numbers calc-btn">1</button>
+            <button class="numbers calc-btn">2</button>
+            <button class="numbers calc-btn">3</button>
+          </div>
+          <div style="display: flex; flex: 1">
+            <button class="numbers calc-btn">4</button>
+            <button class="numbers calc-btn">5</button>
+            <button class="numbers calc-btn">6</button>
+          </div>
+          <div style="display: flex; flex: 1">
+            <button class="numbers calc-btn">7</button>
+            <button class="numbers calc-btn">8</button>
+            <button class="numbers calc-btn">9</button>
+          </div>
+        </div>
+        <div id="oper-container">
+          <button id="ac-btn" class="other" onclick="deleteAll()" style="background-color: #ddcaab;">AC</button>
+          <button class="operators calc-btn">+</button>
+          <button class="operators calc-btn">-</button>
+          <button class="operators calc-btn">/</button>
+          <button class="operators calc-btn">*</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="code.js"></script>
