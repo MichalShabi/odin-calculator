@@ -7,7 +7,10 @@ const subtract = function (a, b) {
 };
 
 const divide = function (a, b) {
-  return (a / b).toFixed(3);
+  if (b !== 0) {
+    return (a / b).toFixed(3);
+  }
+  return "ERROR";
 };
 
 const multiply = function (a, b) {
@@ -15,12 +18,6 @@ const multiply = function (a, b) {
 };
 
 let firstNumber, operator, secondNumber;
-// const numbers = document.querySelectorAll(".numbers");
-// numbers.forEach((number) => {
-//   number.addEventListener("click", () => {
-//     displayNumbers(number);
-//   });
-// });
 const calcBtns = document.querySelectorAll(".calc-btn");
 calcBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -32,6 +29,11 @@ function operate(num1, num2, op) {
   let result;
   num1 = Number(num1);
   num2 = Number(num2);
+  if(num1 === undefined || isNaN(num1) || num2 === undefined || isNaN(num2)) {
+    numArr = [];
+    arrIndex = 0;
+    return "ERROR"
+  }
   switch (op) {
     case "+":
       result = add(num1, num2);
@@ -52,46 +54,38 @@ function operate(num1, num2, op) {
   return result;
 }
 
-// let showNum = "";
 let displayScreen = document.querySelector("#display");
 function displayNumbers(num) {
-  // showNum += num.innerText;
-  // if(num.innerText === ".") {
   displayScreen.innerText = num;
-  // } else {
-  // displayScreen.innerText = num.innerText;
-  // }
 }
-
-// function getNumbers(event) {
-
-// }
 
 function deleteAll() {
   displayScreen.innerText = "";
-  showNum = "";
   numArr =[];
+  arrIndex = 0;
 }
 
 let numArr =[];
-// numArr[0] ="";
 let arrIndex = 0;
 
 function getIntoArray(event) {
-  // console.log(numArr[arrIndex])
   if(event.classList.contains("numbers")) {
     if(numArr[arrIndex] === undefined) {
       numArr[arrIndex] = "";
     }
     numArr[arrIndex] += event.innerText
-    console.log(event.innerText);
     displayNumbers(numArr[arrIndex]);
+    console.table(numArr);
+
   }
   else if(event.classList.contains("operators")) {
-    numArr[arrIndex+1] = event.innerText;
     arrIndex++;
-    
+    if(checkIfOperator(numArr[arrIndex-1])) {
+      arrIndex = arrIndex -2;
+    }
+    numArr[arrIndex] = event.innerText;
     console.table(numArr);
+    
     if(arrIndex >= 2 && checkIfOperator(numArr[arrIndex-2])) {
       let tempResult =  operate(numArr[arrIndex-3], numArr[arrIndex-1], numArr[arrIndex-2])
       numArr[arrIndex - 1] = tempResult;
@@ -100,8 +94,6 @@ function getIntoArray(event) {
     }
     arrIndex++;
   }
-
-  
 }
 
 function checkIfOperator(char) {
@@ -110,8 +102,16 @@ function checkIfOperator(char) {
 }
 
 function equal() {
-  if( typeof numArr[numArr.length-1] === "number" && typeof numArr[numArr.length-3] === "number" && typeof numArr[numArr.length-2] === "string") {}
-  let result = operate(numArr[numArr.length-3], numArr[numArr.length-1], numArr[numArr.length-2]);
-  displayNumbers(result);
-  numArr = [];
+  let result = operate((numArr[numArr.length-3]), numArr[numArr.length-1], numArr[numArr.length-2]);
+  console.log(result + " la");
+  if(!isNaN(result) && result !== undefined) {
+    numArr = [];
+    if(result !== "ERROR") {
+      numArr[0] = result;
+    }
+    arrIndex = 0;
+    displayNumbers(result);
+  }
+else displayNumbers("ERROR")
+    console.table(numArr);
 }
